@@ -1,0 +1,51 @@
+{
+    "name": "oxlint-plugin-react-native",
+    "version": "0.0.1",
+    "author": "Hugo Extrat <extrat.h@gmail.com>",
+    "description": "React Native specific linting rules for Oxlint",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "lint": "oxlint",
+        "format": "oxlint --fix",
+        "test": "jest",
+        "test:watch": "jest --watch"
+    },
+    "files": [
+        "LICENSE",
+        "README.md",
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/huextrat/oxlint-plugin-react-native"
+    },
+    "homepage": "https://github.com/huextrat/oxlint-plugin-react-native",
+    "bugs": "https://github.com/huextrat/oxlint-plugin-react-native/issues",
+    "devDependencies": {
+        "@babel/core": "7.29.0",
+        "@babel/preset-env": "7.29.0",
+        "@babel/preset-typescript": "7.28.5",
+        "@types/jest": "30.0.0",
+        "@types/node": "25.2.0",
+        "jest": "30.2.0",
+        "oxlint": "1.43.0",
+        "typescript": "5.9.3"
+    },
+    "dependencies": {
+        "@oxlint/plugins": "1.43.0"
+    },
+    "peerDependencies": {
+        "oxlint": ">=1.0.0"
+    },
+    "keywords": [
+        "oxlint",
+        "oxlint-plugin",
+        "oxlintplugin",
+        "react",
+        "react-native",
+        "react native"
+    ],
+    "license": "MIT"
+}
