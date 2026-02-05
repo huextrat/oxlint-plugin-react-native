@@ -2,6 +2,8 @@
 
 Lint rules for [React Native](https://reactnative.dev/) projects, built for [Oxlint](https://github.com/oxc-project/oxc).
 
+Rules are based on [eslint-plugin-react-native](https://github.com/Intellicode/eslint-plugin-react-native) by Intellicode, ported to Oxlint. This plugin may evolve with new rules, improvements, or updates over time.
+
 ---
 
 ## Installation
