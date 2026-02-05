@@ -17,6 +17,7 @@ export class StyleSheets {
   styleSheets: StyleSheet;
   colorLiterals: any[];
   objectExpressions: any[];
+  private exportedNames: Set<string> = new Set();
 
   constructor() {
     this.styleSheets = {};
@@ -26,6 +27,10 @@ export class StyleSheets {
 
   add(styleSheetName: string, properties: StyleSheetProperty[]) {
     this.styleSheets[styleSheetName] = properties;
+  }
+
+  markAsExported(styleSheetName: string) {
+    this.exportedNames.add(styleSheetName);
   }
 
   markAsUsed(fullyQualifiedName: string) {
@@ -41,7 +46,13 @@ export class StyleSheets {
   }
 
   getUnusedReferences(): StyleSheet {
-    return this.styleSheets;
+    const result: StyleSheet = {};
+    for (const [name, properties] of Object.entries(this.styleSheets)) {
+      if (properties.length > 0 && !this.exportedNames.has(name)) {
+        result[name] = properties;
+      }
+    }
+    return result;
   }
 
   addColorLiterals(expressions: any[]) {
@@ -101,6 +112,28 @@ export const astHelpers = {
     if (node && node.parent && node.parent.id) {
       return node.parent.id.name;
     }
+  },
+
+  /**
+   * Returns true if the StyleSheet.create call is part of an export, so its
+   * styles may be used in other files and should not be reported as unused.
+   */
+  isStyleSheetExported: function (node: any): boolean {
+    if (!node) return false;
+    // export default StyleSheet.create(...)
+    if (node.parent && node.parent.type === "ExportDefaultDeclaration")
+      return true;
+    const declarator = node.parent;
+    if (!declarator || declarator.type !== "VariableDeclarator") return false;
+    const declaration = declarator.parent;
+    if (!declaration) return false;
+    // export const styles = StyleSheet.create(...)
+    if (
+      declaration.parent &&
+      declaration.parent.type === "ExportNamedDeclaration"
+    )
+      return true;
+    return false;
   },
 
   getStyleDeclarations: function (node: any) {

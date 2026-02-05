@@ -44,6 +44,18 @@ const rule = detect((context: any, components: Components) => {
 
         if (styleSheetName) {
           styleSheets.add(styleSheetName, styles);
+          if (astHelpers.isStyleSheetExported(node)) {
+            styleSheets.markAsExported(styleSheetName);
+          }
+        }
+      }
+    },
+
+    ExportNamedDeclaration: function (node: any) {
+      if (node.specifiers) {
+        for (const spec of node.specifiers) {
+          const name = spec.local && spec.local.name;
+          if (name) styleSheets.markAsExported(name);
         }
       }
     },

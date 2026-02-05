@@ -33,6 +33,34 @@ describe("no-unused-styles", () => {
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toEqual("");
     });
+
+    it("exported styles are not reported as unused (used in another file)", () => {
+      const code = `
+      export const styles = StyleSheet.create({
+        box: { flex: 1 },
+        text: { color: 'red' },
+      });
+      export default function My() {
+        return null;
+      }
+    `;
+      const out = runOxlintWithPlugin(code, rules);
+      expect(out).toEqual("");
+    });
+
+    it("export { styles } does not report styles as unused", () => {
+      const code = `
+      const styles = StyleSheet.create({
+        box: { flex: 1 },
+      });
+      export { styles };
+      export default function My() {
+        return null;
+      }
+    `;
+      const out = runOxlintWithPlugin(code, rules);
+      expect(out).toEqual("");
+    });
   });
 
   describe("invalid", () => {
