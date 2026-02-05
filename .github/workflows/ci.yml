@@ -1,0 +1,48 @@
+# Lint, format check, and test on every pull request.
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: 📋 Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup project
+        uses: ./.github/actions/setup
+
+      - name: 🔍 Run Oxlint
+        run: npm run lint
+
+  format:
+    name: ✨ Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup project
+        uses: ./.github/actions/setup
+
+      - name: 🎨 Check formatting (Oxfmt)
+        run: npm run format:check
+
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup project
+        uses: ./.github/actions/setup
+
+      - name: 📦 Build plugin
+        run: npm run build
+
+      - name: ✅ Run tests
+        run: npm run test
