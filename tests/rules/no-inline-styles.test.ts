@@ -1,5 +1,5 @@
 /**
- * no-inline-styles rule: run against oxlint (not ESLint).
+ * no-inline-styles rule: run against oxlint.
  */
 
 import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
