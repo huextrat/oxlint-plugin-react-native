@@ -1,7 +1,6 @@
-
-import { detect } from '../util/Components.js';
-import { StyleSheets, astHelpers } from '../util/stylesheet.js';
-import * as util from 'util';
+import { detect } from "../util/Components.js";
+import { StyleSheets, astHelpers } from "../util/stylesheet.js";
+import * as util from "util";
 
 const rule = detect((context: any) => {
   // Setup state per-file (createOnce)
@@ -9,19 +8,19 @@ const rule = detect((context: any) => {
 
   return {
     before() {
-       styleSheets = new StyleSheets();
+      styleSheets = new StyleSheets();
     },
     JSXAttribute: (node: any) => {
       if (astHelpers.isStyleAttribute(node)) {
         const styles = astHelpers.collectStyleObjectExpressions(
           node.value,
-          context
+          context,
         );
         styleSheets.addObjectExpressions(styles);
       }
     },
 
-    'Program:exit': () => {
+    "Program:exit": () => {
       const inlineStyles = styleSheets.getObjectExpressions();
       if (inlineStyles) {
         inlineStyles.forEach((style) => {
@@ -29,7 +28,7 @@ const rule = detect((context: any) => {
             const expression = util.inspect(style.expression);
             context.report({
               node: style.node,
-              message: 'Inline style: {{expression}}',
+              message: "Inline style: {{expression}}",
               data: { expression },
             });
           }
@@ -40,8 +39,8 @@ const rule = detect((context: any) => {
 });
 
 export default {
-    meta: {
-        schema: [],
-    },
-    createOnce: rule
-}
+  meta: {
+    schema: [],
+  },
+  createOnce: rule,
+};

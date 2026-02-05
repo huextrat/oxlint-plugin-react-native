@@ -1,31 +1,30 @@
-
 const elementName = (node: any) => {
   const reversedIdentifiers = [];
   if (
-    node.type === 'JSXElement' &&
-    node.openingElement.type === 'JSXOpeningElement'
+    node.type === "JSXElement" &&
+    node.openingElement.type === "JSXOpeningElement"
   ) {
     let object = node.openingElement.name;
-    while (object.type === 'JSXMemberExpression') {
-      if (object.property.type === 'JSXIdentifier') {
+    while (object.type === "JSXMemberExpression") {
+      if (object.property.type === "JSXIdentifier") {
         reversedIdentifiers.push(object.property.name);
       }
       object = object.object;
     }
 
-    if (object.type === 'JSXIdentifier') {
+    if (object.type === "JSXIdentifier") {
       reversedIdentifiers.push(object.name);
     }
   }
 
-  return reversedIdentifiers.reverse().join('.');
+  return reversedIdentifiers.reverse().join(".");
 };
 
 const hasAllowedParent = (parent: any, allowedElements: string[]) => {
   let curNode = parent;
 
   while (curNode) {
-    if (curNode.type === 'JSXElement') {
+    if (curNode.type === "JSXElement") {
       const name = elementName(curNode);
       if (allowedElements.includes(name)) {
         return true;
@@ -45,10 +44,10 @@ const rule = (context: any) => {
       const options = context.options[0] || {};
       const skippedElements = options.skip ? options.skip : [];
       _allowedElements = [
-        'Text',
-        'TSpan',
-        'StyledText',
-        'Animated.Text',
+        "Text",
+        "TSpan",
+        "StyledText",
+        "Animated.Text",
       ].concat(skippedElements);
     }
     return _allowedElements;
@@ -56,12 +55,12 @@ const rule = (context: any) => {
 
   const report = (node: any) => {
     const errorValue =
-      node.type === 'TemplateLiteral'
+      node.type === "TemplateLiteral"
         ? `TemplateLiteral: ${node.expressions[0].name}`
         : node.value.trim();
 
     const formattedErrorValue =
-      errorValue.length > 0 ? `Raw text (${errorValue})` : 'Whitespace(s)';
+      errorValue.length > 0 ? `Raw text (${errorValue})` : "Whitespace(s)";
 
     context.report({
       node,
@@ -70,7 +69,7 @@ const rule = (context: any) => {
   };
 
   const hasOnlyLineBreak = (value: string) =>
-    /^[\r\n\t\f\v]+$/.test(value.replace(/ /g, ''));
+    /^[\r\n\t\f\v]+$/.test(value.replace(/ /g, ""));
 
   const getValidation = (node: any) =>
     !hasAllowedParent(node.parent, getAllowedElements());
@@ -78,23 +77,23 @@ const rule = (context: any) => {
   return {
     Literal(node: any) {
       const parentType = node.parent.type;
-      const onlyFor = ['JSXExpressionContainer', 'JSXElement'];
+      const onlyFor = ["JSXExpressionContainer", "JSXElement"];
       if (
-        typeof node.value !== 'string' ||
+        typeof node.value !== "string" ||
         hasOnlyLineBreak(node.value) ||
         !onlyFor.includes(parentType) ||
-        (node.parent.parent && node.parent.parent.type === 'JSXAttribute')
+        (node.parent.parent && node.parent.parent.type === "JSXAttribute")
       )
         return;
 
-      const isStringLiteral = parentType === 'JSXExpressionContainer';
+      const isStringLiteral = parentType === "JSXExpressionContainer";
       if (getValidation(isStringLiteral ? node.parent : node)) {
         report(node);
       }
     },
 
     JSXText(node: any) {
-      if (typeof node.value !== 'string' || hasOnlyLineBreak(node.value))
+      if (typeof node.value !== "string" || hasOnlyLineBreak(node.value))
         return;
       if (getValidation(node)) {
         report(node);
@@ -103,8 +102,8 @@ const rule = (context: any) => {
 
     TemplateLiteral(node: any) {
       if (
-        node.parent.type !== 'JSXExpressionContainer' ||
-        (node.parent.parent && node.parent.parent.type === 'JSXAttribute')
+        node.parent.type !== "JSXExpressionContainer" ||
+        (node.parent.parent && node.parent.parent.type === "JSXAttribute")
       )
         return;
 
@@ -119,12 +118,12 @@ export default {
   meta: {
     schema: [
       {
-        type: 'object',
+        type: "object",
         properties: {
           skip: {
-            type: 'array',
+            type: "array",
             items: {
-              type: 'string',
+              type: "string",
             },
           },
         },

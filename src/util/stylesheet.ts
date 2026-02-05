@@ -1,4 +1,3 @@
-
 export interface StyleSheetProperty {
   key: {
     name: string;
@@ -30,14 +29,14 @@ export class StyleSheets {
   }
 
   markAsUsed(fullyQualifiedName: string) {
-    const nameSplit = fullyQualifiedName.split('.');
+    const nameSplit = fullyQualifiedName.split(".");
     const styleSheetName = nameSplit[0];
     const styleSheetProperty = nameSplit[1];
 
     if (this.styleSheets[styleSheetName]) {
-      this.styleSheets[styleSheetName] = this.styleSheets[styleSheetName].filter(
-        (property) => property.key.name !== styleSheetProperty
-      );
+      this.styleSheets[styleSheetName] = this.styleSheets[
+        styleSheetName
+      ].filter((property) => property.key.name !== styleSheetProperty);
     }
   }
 
@@ -66,26 +65,26 @@ let currentContent: any;
 const getSourceCode = (node: any) => currentContent.sourceCode.getText(node);
 
 const getStyleSheetObjectNames = (settings: any) =>
-  settings['react-native/style-sheet-object-names'] || ['StyleSheet'];
+  settings["react-native/style-sheet-object-names"] || ["StyleSheet"];
 
 export const astHelpers = {
   containsStyleSheetObject: function (node: any, objectNames: string[]) {
     return Boolean(
       node &&
-        node.type === 'CallExpression' &&
-        node.callee &&
-        node.callee.object &&
-        node.callee.object.name &&
-        objectNames.includes(node.callee.object.name)
+      node.type === "CallExpression" &&
+      node.callee &&
+      node.callee.object &&
+      node.callee.object.name &&
+      objectNames.includes(node.callee.object.name),
     );
   },
 
   containsCreateCall: function (node: any) {
     return Boolean(
       node &&
-        node.callee &&
-        node.callee.property &&
-        node.callee.property.name === 'create'
+      node.callee &&
+      node.callee.property &&
+      node.callee.property.name === "create",
     );
   },
 
@@ -94,7 +93,7 @@ export const astHelpers = {
 
     return Boolean(
       astHelpers.containsStyleSheetObject(node, objectNames) &&
-        astHelpers.containsCreateCall(node)
+      astHelpers.containsCreateCall(node),
     );
   },
 
@@ -107,13 +106,13 @@ export const astHelpers = {
   getStyleDeclarations: function (node: any) {
     if (
       node &&
-      node.type === 'CallExpression' &&
+      node.type === "CallExpression" &&
       node.arguments &&
       node.arguments[0] &&
       node.arguments[0].properties
     ) {
       return node.arguments[0].properties.filter(
-        (property: any) => property.type === 'Property'
+        (property: any) => property.type === "Property",
       );
     }
 
@@ -123,7 +122,7 @@ export const astHelpers = {
   getStyleDeclarationsChunks: function (node: any) {
     if (
       node &&
-      node.type === 'CallExpression' &&
+      node.type === "CallExpression" &&
       node.arguments &&
       node.arguments[0] &&
       node.arguments[0].properties
@@ -134,7 +133,7 @@ export const astHelpers = {
       let chunk = [];
       for (let i = 0; i < properties.length; i += 1) {
         const property = properties[i];
-        if (property.type === 'Property') {
+        if (property.type === "Property") {
           chunk.push(property);
         } else if (chunk.length) {
           result.push(chunk);
@@ -155,7 +154,7 @@ export const astHelpers = {
     let chunk = [];
     for (let i = 0; i < properties.length; i += 1) {
       const property = properties[i];
-      if (property.type === 'Property') {
+      if (property.type === "Property") {
         chunk.push(property);
       } else if (chunk.length) {
         result.push(chunk);
@@ -171,24 +170,24 @@ export const astHelpers = {
   getExpressionIdentifier: function (node: any): string {
     if (node) {
       switch (node.type) {
-        case 'Identifier':
+        case "Identifier":
           return node.name;
-        case 'Literal':
+        case "Literal":
           return node.value;
-        case 'TemplateLiteral':
+        case "TemplateLiteral":
           return node.quasis.reduce(
             (result: string, quasi: any, index: number) =>
               result +
               quasi.value.cooked +
               astHelpers.getExpressionIdentifier(node.expressions[index]),
-            ''
+            "",
           );
         default:
-          return '';
+          return "";
       }
     }
 
-    return '';
+    return "";
   },
 
   getStylePropertyIdentifier: function (node: any) {
@@ -199,10 +198,10 @@ export const astHelpers = {
 
   isStyleAttribute: function (node: any) {
     return Boolean(
-      node.type === 'JSXAttribute' &&
-        node.name &&
-        node.name.name &&
-        node.name.name.toLowerCase().includes('style')
+      node.type === "JSXAttribute" &&
+      node.name &&
+      node.name.name &&
+      node.name.name.toLowerCase().includes("style"),
     );
   },
 
@@ -212,7 +211,7 @@ export const astHelpers = {
       const styleReferenceContainers = node.expression.elements;
 
       return astHelpers.collectStyleObjectExpressionFromContainers(
-        styleReferenceContainers
+        styleReferenceContainers,
       );
     }
     if (node && node.expression) {
@@ -232,11 +231,11 @@ export const astHelpers = {
       const styleReferenceContainers = node.expression.elements;
 
       return astHelpers.collectColorLiteralsFromContainers(
-        styleReferenceContainers
+        styleReferenceContainers,
       );
     }
 
-    if (node.type === 'ObjectExpression') {
+    if (node.type === "ObjectExpression") {
       return astHelpers.getColorLiteralsFromNode(node);
     }
 
@@ -247,7 +246,7 @@ export const astHelpers = {
     let objectExpressions: any[] = [];
     nodes.forEach((node) => {
       objectExpressions = objectExpressions.concat(
-        astHelpers.getStyleObjectExpressionFromNode(node)
+        astHelpers.getStyleObjectExpressionFromNode(node),
       );
     });
 
@@ -258,7 +257,7 @@ export const astHelpers = {
     let colorLiterals: any[] = [];
     nodes.forEach((node) => {
       colorLiterals = colorLiterals.concat(
-        astHelpers.getColorLiteralsFromNode(node)
+        astHelpers.getColorLiteralsFromNode(node),
       );
     });
 
@@ -275,21 +274,25 @@ export const astHelpers = {
     }
 
     switch (node.type) {
-      case 'MemberExpression':
+      case "MemberExpression":
         styleReference = astHelpers.getStyleReferenceFromExpression(node);
         return [styleReference];
-      case 'LogicalExpression':
+      case "LogicalExpression":
         leftStyleReferences = astHelpers.getStyleReferenceFromNode(node.left);
         rightStyleReferences = astHelpers.getStyleReferenceFromNode(node.right);
-    return ([] as any[]).concat(leftStyleReferences).concat(rightStyleReferences);
-      case 'ConditionalExpression':
+        return ([] as any[])
+          .concat(leftStyleReferences)
+          .concat(rightStyleReferences);
+      case "ConditionalExpression":
         leftStyleReferences = astHelpers.getStyleReferenceFromNode(
-          node.consequent
+          node.consequent,
         );
         rightStyleReferences = astHelpers.getStyleReferenceFromNode(
-          node.alternate
+          node.alternate,
         );
-        return ([] as any[]).concat(leftStyleReferences).concat(rightStyleReferences);
+        return ([] as any[])
+          .concat(leftStyleReferences)
+          .concat(rightStyleReferences);
       default:
         return [];
     }
@@ -303,28 +306,26 @@ export const astHelpers = {
       return [];
     }
 
-    if (node.type === 'ObjectExpression') {
+    if (node.type === "ObjectExpression") {
       return [astHelpers.getStyleObjectFromExpression(node)];
     }
 
     switch (node.type) {
-      case 'LogicalExpression':
+      case "LogicalExpression":
         leftStyleObjectExpression = astHelpers.getStyleObjectExpressionFromNode(
-          node.left
+          node.left,
         );
-        rightStyleObjectExpression = astHelpers.getStyleObjectExpressionFromNode(
-          node.right
-        );
+        rightStyleObjectExpression =
+          astHelpers.getStyleObjectExpressionFromNode(node.right);
         return ([] as any[])
           .concat(leftStyleObjectExpression)
           .concat(rightStyleObjectExpression);
-      case 'ConditionalExpression':
+      case "ConditionalExpression":
         leftStyleObjectExpression = astHelpers.getStyleObjectExpressionFromNode(
-          node.consequent
+          node.consequent,
         );
-        rightStyleObjectExpression = astHelpers.getStyleObjectExpressionFromNode(
-          node.alternate
-        );
+        rightStyleObjectExpression =
+          astHelpers.getStyleObjectExpressionFromNode(node.alternate);
         return ([] as any[])
           .concat(leftStyleObjectExpression)
           .concat(rightStyleObjectExpression);
@@ -341,23 +342,27 @@ export const astHelpers = {
       return [];
     }
 
-    if (node.type === 'ObjectExpression') {
+    if (node.type === "ObjectExpression") {
       return [astHelpers.getColorLiteralsFromExpression(node)];
     }
 
     switch (node.type) {
-      case 'LogicalExpression':
+      case "LogicalExpression":
         leftColorLiterals = astHelpers.getColorLiteralsFromNode(node.left);
         rightColorLiterals = astHelpers.getColorLiteralsFromNode(node.right);
-        return ([] as any[]).concat(leftColorLiterals).concat(rightColorLiterals);
-      case 'ConditionalExpression':
+        return ([] as any[])
+          .concat(leftColorLiterals)
+          .concat(rightColorLiterals);
+      case "ConditionalExpression":
         leftColorLiterals = astHelpers.getColorLiteralsFromNode(
-          node.consequent
+          node.consequent,
         );
         rightColorLiterals = astHelpers.getColorLiteralsFromNode(
-          node.alternate
+          node.alternate,
         );
-        return ([] as any[]).concat(leftColorLiterals).concat(rightColorLiterals);
+        return ([] as any[])
+          .concat(leftColorLiterals)
+          .concat(rightColorLiterals);
       default:
         return [];
     }
@@ -367,9 +372,9 @@ export const astHelpers = {
     return (
       node &&
       Boolean(
-        node.type === 'JSXExpressionContainer' &&
-          node.expression &&
-          node.expression.type === 'ArrayExpression'
+        node.type === "JSXExpressionContainer" &&
+        node.expression &&
+        node.expression.type === "ArrayExpression",
       )
     );
   },
@@ -386,7 +391,7 @@ export const astHelpers = {
       result.push(property);
     }
 
-    return result.join('.');
+    return result.join(".");
   },
 
   getStyleObjectFromExpression: function (node: any) {
@@ -397,29 +402,29 @@ export const astHelpers = {
         if (!p.value || !p.key) {
           return;
         }
-        if (p.value.type === 'Literal') {
+        if (p.value.type === "Literal") {
           invalid = true;
           obj[p.key.name] = p.value.value;
-        } else if (p.value.type === 'ConditionalExpression') {
+        } else if (p.value.type === "ConditionalExpression") {
           const innerNode = p.value;
           if (
-            innerNode.consequent.type === 'Literal' ||
-            innerNode.alternate.type === 'Literal'
+            innerNode.consequent.type === "Literal" ||
+            innerNode.alternate.type === "Literal"
           ) {
             invalid = true;
             obj[p.key.name] = getSourceCode(innerNode);
           }
         } else if (
-          p.value.type === 'UnaryExpression' &&
-          p.value.operator === '-' &&
-          p.value.argument.type === 'Literal'
+          p.value.type === "UnaryExpression" &&
+          p.value.operator === "-" &&
+          p.value.argument.type === "Literal"
         ) {
           invalid = true;
           obj[p.key.name] = -1 * p.value.argument.value;
         } else if (
-          p.value.type === 'UnaryExpression' &&
-          p.value.operator === '+' &&
-          p.value.argument.type === 'Literal'
+          p.value.type === "UnaryExpression" &&
+          p.value.operator === "+" &&
+          p.value.argument.type === "Literal"
         ) {
           invalid = true;
           obj[p.key.name] = p.value.argument.value;
@@ -437,16 +442,16 @@ export const astHelpers = {
         if (
           p.key &&
           p.key.name &&
-          p.key.name.toLowerCase().indexOf('color') !== -1
+          p.key.name.toLowerCase().indexOf("color") !== -1
         ) {
-          if (p.value.type === 'Literal') {
+          if (p.value.type === "Literal") {
             invalid = true;
             obj[p.key.name] = p.value.value;
-          } else if (p.value.type === 'ConditionalExpression') {
+          } else if (p.value.type === "ConditionalExpression") {
             const innerNode = p.value;
             if (
-              innerNode.consequent.type === 'Literal' ||
-              innerNode.alternate.type === 'Literal'
+              innerNode.consequent.type === "Literal" ||
+              innerNode.alternate.type === "Literal"
             ) {
               invalid = true;
               obj[p.key.name] = getSourceCode(innerNode);
@@ -474,19 +479,19 @@ export const astHelpers = {
     if (
       node &&
       node.object &&
-      node.object.type === 'Identifier' &&
+      node.object.type === "Identifier" &&
       node.object.name &&
       node.property &&
-      node.property.type === 'Identifier' &&
+      node.property.type === "Identifier" &&
       node.property.name &&
-      node.parent.type !== 'MemberExpression'
+      node.parent.type !== "MemberExpression"
     ) {
-      return [node.object.name, node.property.name].join('.');
+      return [node.object.name, node.property.name].join(".");
     }
   },
 
   isEitherShortHand: function (property1: string, property2: string) {
-    const shorthands = ['margin', 'padding', 'border', 'flex'];
+    const shorthands = ["margin", "padding", "border", "flex"];
     if (shorthands.includes(property1)) {
       return property2.startsWith(property1);
     }

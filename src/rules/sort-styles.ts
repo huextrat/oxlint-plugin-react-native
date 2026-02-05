@@ -1,12 +1,11 @@
-
-import { astHelpers } from '../util/stylesheet.js';
+import { astHelpers } from "../util/stylesheet.js";
 
 const rule = (context: any) => {
   // Defer context.options and context.sourceCode to visitor (oxlint forbids in createOnce).
   function sort(array: any[], order: string) {
     return [...array].sort((a: any, b: any) => {
-      const identifierA = astHelpers.getStylePropertyIdentifier(a) || '';
-      const identifierB = astHelpers.getStylePropertyIdentifier(b) || '';
+      const identifierA = astHelpers.getStylePropertyIdentifier(a) || "";
+      const identifierB = astHelpers.getStylePropertyIdentifier(b) || "";
 
       let sortOrder = 0;
       if (astHelpers.isEitherShortHand(identifierA, identifierB)) {
@@ -17,7 +16,7 @@ const rule = (context: any) => {
       } else if (identifierA > identifierB) {
         sortOrder = 1;
       }
-      return sortOrder * (order === 'asc' ? 1 : -1);
+      return sortOrder * (order === "asc" ? 1 : -1);
     });
   }
 
@@ -28,7 +27,7 @@ const rule = (context: any) => {
     prev: any,
     current: any,
     order: string,
-    sourceCode: any
+    sourceCode: any,
   ) {
     const currentName = astHelpers.getStylePropertyIdentifier(current);
     const prevName = astHelpers.getStylePropertyIdentifier(prev);
@@ -52,7 +51,7 @@ const rule = (context: any) => {
                 if (item !== sortedArray[i]) {
                   return fixer.replaceText(
                     item,
-                    sourceCode.getText(sortedArray[i])
+                    sourceCode.getText(sortedArray[i]),
                   );
                 }
                 return null;
@@ -69,37 +68,45 @@ const rule = (context: any) => {
     order: string,
     options: any,
     sourceCode: any,
-    isValidOrder: (a: any, b: any) => boolean
+    isValidOrder: (a: any, b: any) => boolean,
   ) {
     for (let i = 1; i < array.length; i += 1) {
       const previous = array[i - 1];
       const current = array[i];
 
-      if (previous.type !== 'Property' || current.type !== 'Property') {
+      if (previous.type !== "Property" || current.type !== "Property") {
         return;
       }
 
-      const prevName = astHelpers.getStylePropertyIdentifier(previous) || '';
-      const currentName = astHelpers.getStylePropertyIdentifier(current) || '';
+      const prevName = astHelpers.getStylePropertyIdentifier(previous) || "";
+      const currentName = astHelpers.getStylePropertyIdentifier(current) || "";
 
       const oneIsShorthandForTheOther =
-        arrayName === 'style properties' &&
+        arrayName === "style properties" &&
         astHelpers.isEitherShortHand(prevName, currentName);
 
       if (!oneIsShorthandForTheOther && !isValidOrder(prevName, currentName)) {
-        return report(array, arrayName, node, previous, current, order, sourceCode);
+        return report(
+          array,
+          arrayName,
+          node,
+          previous,
+          current,
+          order,
+          sourceCode,
+        );
       }
     }
   }
 
   return {
     CallExpression: function (node: any) {
-      const order = context.options[0] || 'asc';
+      const order = context.options[0] || "asc";
       const options = context.options[1] || {};
       const { ignoreClassNames, ignoreStyleProperties } = options;
       const sourceCode = context.sourceCode;
       const isValidOrder =
-        order === 'asc'
+        order === "asc"
           ? (a: any, b: any) => a <= b
           : (a: any, b: any) => a >= b;
 
@@ -107,18 +114,19 @@ const rule = (context: any) => {
         return;
       }
 
-      const classDefinitionsChunks = astHelpers.getStyleDeclarationsChunks(node);
+      const classDefinitionsChunks =
+        astHelpers.getStyleDeclarationsChunks(node);
 
       if (!ignoreClassNames) {
         classDefinitionsChunks.forEach((classDefinitions) => {
           checkIsSorted(
             classDefinitions,
-            'class names',
+            "class names",
             node,
             order,
             options,
             sourceCode,
-            isValidOrder
+            isValidOrder,
           );
         });
       }
@@ -131,18 +139,17 @@ const rule = (context: any) => {
           if (!styleProperties || styleProperties.length < 2) {
             return;
           }
-          const stylePropertyChunks = astHelpers.getPropertiesChunks(
-            styleProperties
-          );
+          const stylePropertyChunks =
+            astHelpers.getPropertiesChunks(styleProperties);
           stylePropertyChunks.forEach((stylePropertyChunk) => {
             checkIsSorted(
               stylePropertyChunk,
-              'style properties',
+              "style properties",
               node,
               order,
               options,
               sourceCode,
-              isValidOrder
+              isValidOrder,
             );
           });
         });
@@ -153,19 +160,19 @@ const rule = (context: any) => {
 
 export default {
   meta: {
-    fixable: 'code',
+    fixable: "code",
     schema: [
       {
-        enum: ['asc', 'desc'],
+        enum: ["asc", "desc"],
       },
       {
-        type: 'object',
+        type: "object",
         properties: {
           ignoreClassNames: {
-            type: 'boolean',
+            type: "boolean",
           },
           ignoreStyleProperties: {
-            type: 'boolean',
+            type: "boolean",
           },
         },
         additionalProperties: false,

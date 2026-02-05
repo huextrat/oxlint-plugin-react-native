@@ -1,7 +1,6 @@
-
-import { detect } from '../util/Components.js';
-import { StyleSheets, astHelpers } from '../util/stylesheet.js';
-import * as util from 'util';
+import { detect } from "../util/Components.js";
+import { StyleSheets, astHelpers } from "../util/stylesheet.js";
+import * as util from "util";
 
 const rule = detect((context: any) => {
   let styleSheets: StyleSheets;
@@ -18,7 +17,7 @@ const rule = detect((context: any) => {
           styles.forEach((style: any) => {
             const literals = astHelpers.collectColorLiterals(
               style.value,
-              context
+              context,
             );
             styleSheets.addColorLiterals(literals);
           });
@@ -33,7 +32,7 @@ const rule = detect((context: any) => {
       }
     },
 
-    'Program:exit': () => {
+    "Program:exit": () => {
       const colorLiterals = styleSheets.getColorLiterals();
       if (colorLiterals) {
         colorLiterals.forEach((style) => {
@@ -41,7 +40,7 @@ const rule = detect((context: any) => {
             const expression = util.inspect(style.expression);
             context.report({
               node: style.node,
-              message: 'Color literal: {{expression}}',
+              message: "Color literal: {{expression}}",
               data: { expression },
             });
           }
@@ -52,8 +51,8 @@ const rule = detect((context: any) => {
 });
 
 export default {
-    meta: {
-        schema: [],
-    },
-    createOnce: rule
-}
+  meta: {
+    schema: [],
+  },
+  createOnce: rule,
+};

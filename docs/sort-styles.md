@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 const styles = StyleSheet.create({
   box: {
     zIndex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 ```
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   box: {
-    alignItems: 'center',
+    alignItems: "center",
     zIndex: 1,
   },
 });

@@ -2,21 +2,21 @@
  * no-raw-text rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from '../run-oxlint';
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
 
-const RULE = 'react-native/no-raw-text';
-const rules = { [RULE]: 'error' };
+const RULE = "react-native/no-raw-text";
+const rules = { [RULE]: "error" };
 
-describe('no-raw-text', () => {
+describe("no-raw-text", () => {
   if (!hasDist()) {
-    it('requires dist (run npm run build)', () => {
+    it("requires dist (run npm run build)", () => {
       expect(hasDist()).toBe(true);
     });
     return;
   }
 
-  describe('valid', () => {
-    it('text is inside Text', () => {
+  describe("valid", () => {
+    it("text is inside Text", () => {
       const code = `
       export default function My() {
         return (
@@ -27,12 +27,12 @@ describe('no-raw-text', () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toEqual('');
+      expect(out).toEqual("");
     });
   });
 
-  describe('invalid', () => {
-    it('raw text outside Text (element)', () => {
+  describe("invalid", () => {
+    it("raw text outside Text (element)", () => {
       const code = `
       export default function My() {
         return (
@@ -43,17 +43,21 @@ describe('no-raw-text', () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain("react-native(no-raw-text): Raw text (Raw text outside Text) cannot be used outside of a <Text> tag");
+      expect(out).toContain(
+        "react-native(no-raw-text): Raw text (Raw text outside Text) cannot be used outside of a <Text> tag",
+      );
     });
 
-    it('JSXText outside Text', () => {
+    it("JSXText outside Text", () => {
       const code = `
       export default function My() {
         return <View>hello</View>;
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain("react-native(no-raw-text): Raw text (hello) cannot be used outside of a <Text> tag");
+      expect(out).toContain(
+        "react-native(no-raw-text): Raw text (hello) cannot be used outside of a <Text> tag",
+      );
     });
   });
 });

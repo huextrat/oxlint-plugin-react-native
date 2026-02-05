@@ -1,6 +1,5 @@
-
-import { Components, detect } from '../util/Components.js';
-import { StyleSheets, astHelpers } from '../util/stylesheet.js';
+import { Components, detect } from "../util/Components.js";
+import { StyleSheets, astHelpers } from "../util/stylesheet.js";
 
 const rule = detect((context: any, components: Components) => {
   let styleSheets: StyleSheets;
@@ -12,11 +11,11 @@ const rule = detect((context: any, components: Components) => {
         const styles = unusedStyles[key];
         styles.forEach((node: any) => {
           const message = [
-            'Unused style detected: ',
+            "Unused style detected: ",
             key,
-            '.',
+            ".",
             node.key.name,
-          ].join('');
+          ].join("");
 
           context.report({ node, message });
         });
@@ -31,9 +30,8 @@ const rule = detect((context: any, components: Components) => {
     },
 
     MemberExpression: function (node: any) {
-      const styleRef = astHelpers.getPotentialStyleReferenceFromMemberExpression(
-        node
-      );
+      const styleRef =
+        astHelpers.getPotentialStyleReferenceFromMemberExpression(node);
       if (styleRef) {
         styleReferences.add(styleRef);
       }
@@ -45,12 +43,12 @@ const rule = detect((context: any, components: Components) => {
         const styles = astHelpers.getStyleDeclarations(node);
 
         if (styleSheetName) {
-            styleSheets.add(styleSheetName, styles);
+          styleSheets.add(styleSheetName, styles);
         }
       }
     },
 
-    'Program:exit': function () {
+    "Program:exit": function () {
       const list = components.all();
       if (Object.keys(list).length > 0) {
         styleReferences.forEach((reference) => {

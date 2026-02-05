@@ -1,4 +1,3 @@
-
 export interface ComponentNode {
   range: [number, number];
   parent?: any;
@@ -17,7 +16,7 @@ export class Components {
   }
 
   getId(node: ComponentNode | undefined): string {
-    return node ? node.range.join(':') : '';
+    return node ? node.range.join(":") : "";
   }
 
   add(node: any, confidence: number) {
@@ -28,7 +27,7 @@ export class Components {
       } else {
         this.list[id].confidence = Math.max(
           this.list[id].confidence,
-          confidence
+          confidence,
         );
       }
       return;
@@ -93,7 +92,7 @@ export function componentRule(rule: Function, context: any) {
         return false;
       }
       return /^(React\.)?createClass$/.test(
-        context.sourceCode.getText(node.parent.callee)
+        context.sourceCode.getText(node.parent.callee),
       );
     },
 
@@ -102,18 +101,18 @@ export function componentRule(rule: Function, context: any) {
         return false;
       }
       return /^(React\.)?(Pure)?Component$/.test(
-        context.sourceCode.getText(node.superClass)
+        context.sourceCode.getText(node.superClass),
       );
     },
 
     isReturningJSX: function (node: any) {
       let property;
       switch (node.type) {
-        case 'ReturnStatement':
-          property = 'argument';
+        case "ReturnStatement":
+          property = "argument";
           break;
-        case 'ArrowFunctionExpression':
-          property = 'body';
+        case "ArrowFunctionExpression":
+          property = "body";
           break;
         default:
           return false;
@@ -121,13 +120,13 @@ export function componentRule(rule: Function, context: any) {
 
       const returnsJSX =
         node[property] &&
-        (node[property].type === 'JSXElement' ||
-          node[property].type === 'JSXFragment');
+        (node[property].type === "JSXElement" ||
+          node[property].type === "JSXFragment");
       const returnsReactCreateElement =
         node[property] &&
         node[property].callee &&
         node[property].callee.property &&
-        node[property].callee.property.name === 'createElement';
+        node[property].callee.property.name === "createElement";
       return Boolean(returnsJSX || returnsReactCreateElement);
     },
 
@@ -154,7 +153,7 @@ export function componentRule(rule: Function, context: any) {
 
     getParentES6Component: function (_n: any) {
       let scope = (context.sourceCode || context).getScope(_n);
-      while (scope && scope.type !== 'class') {
+      while (scope && scope.type !== "class") {
         scope = scope.upper;
       }
       const node = scope && scope.block;
@@ -170,9 +169,9 @@ export function componentRule(rule: Function, context: any) {
         const node = scope.block;
         const isFunction = /Function/.test(node.type);
         const isNotMethod =
-          !node.parent || node.parent.type !== 'MethodDefinition';
+          !node.parent || node.parent.type !== "MethodDefinition";
         const isNotArgument =
-          !node.parent || node.parent.type !== 'CallExpression';
+          !node.parent || node.parent.type !== "CallExpression";
         if (isFunction && isNotMethod && isNotArgument) {
           return node;
         }
@@ -191,11 +190,11 @@ export function componentRule(rule: Function, context: any) {
       while (currentNode) {
         if (
           currentNode.property &&
-          currentNode.property.type === 'Identifier'
+          currentNode.property.type === "Identifier"
         ) {
           componentPath.push(currentNode.property.name);
         }
-        if (currentNode.object && currentNode.object.type === 'Identifier') {
+        if (currentNode.object && currentNode.object.type === "Identifier") {
           componentPath.push(currentNode.object.name);
         }
         currentNode = currentNode.object;
@@ -222,9 +221,9 @@ export function componentRule(rule: Function, context: any) {
       const { defs } = variableInScope;
       for (i = 0, j = defs.length; i < j; i++) {
         if (
-          defs[i].type === 'ClassName' ||
-          defs[i].type === 'FunctionName' ||
-          defs[i].type === 'Variable'
+          defs[i].type === "ClassName" ||
+          defs[i].type === "FunctionName" ||
+          defs[i].type === "Variable"
         ) {
           defInScope = defs[i];
           break;
@@ -342,6 +341,6 @@ export function componentRule(rule: Function, context: any) {
 
 export function detect(rule: Function) {
   return function (context: any) {
-      return componentRule(rule, context);
+    return componentRule(rule, context);
   };
 }

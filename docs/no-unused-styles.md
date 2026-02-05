@@ -21,7 +21,7 @@ Any defined style that is never used is reported.
 ```jsx
 const styles = StyleSheet.create({
   used: { flex: 1 },
-  unused: { color: 'red' },
+  unused: { color: "red" },
 });
 export default function My() {
   return <View style={styles.used} />;
@@ -33,7 +33,7 @@ export default function My() {
 ```jsx
 const styles = StyleSheet.create({
   box: { flex: 1 },
-  text: { color: 'red' },
+  text: { color: "red" },
 });
 export default function My() {
   return (
