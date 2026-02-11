@@ -2,7 +2,11 @@
  * no-unused-styles rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin, runOxlintWithPluginFix } from "../run-oxlint";
+import {
+  hasDist,
+  runOxlintWithPlugin,
+  runOxlintWithPluginFix,
+} from "../run-oxlint";
 
 const RULE = "react-native/no-unused-styles";
 const rules = { [RULE]: "error" };

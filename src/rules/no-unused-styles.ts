@@ -35,7 +35,9 @@ const rule = detect((context: any, components: Components) => {
               if (index === 0) {
                 removeStart = node.range[0];
                 removeEnd =
-                  properties.length > 1 ? properties[1].range[0] : node.range[1];
+                  properties.length > 1
+                    ? properties[1].range[0]
+                    : node.range[1];
               } else {
                 const prev = properties[index - 1];
                 removeStart = prev.range[1];
