@@ -17,7 +17,34 @@ const rule = detect((context: any, components: Components) => {
             node.key.name,
           ].join("");
 
-          context.report({ node, message });
+          context.report({
+            node,
+            message,
+            fix(fixer: any) {
+              const parent = node.parent;
+              if (!parent || !parent.properties) {
+                return fixer.remove(node);
+              }
+              const properties = parent.properties;
+              const index = properties.indexOf(node);
+              if (index === -1) return fixer.remove(node);
+
+              let removeStart: number;
+              let removeEnd: number;
+
+              if (index === 0) {
+                removeStart = node.range[0];
+                removeEnd =
+                  properties.length > 1 ? properties[1].range[0] : node.range[1];
+              } else {
+                const prev = properties[index - 1];
+                removeStart = prev.range[1];
+                removeEnd = node.range[1];
+              }
+
+              return fixer.removeRange([removeStart, removeEnd]);
+            },
+          });
         });
       }
     });
@@ -75,6 +102,7 @@ const rule = detect((context: any, components: Components) => {
 export default {
   meta: {
     schema: [],
+    fixable: "code",
   },
   createOnce: rule,
 };

@@ -2,7 +2,7 @@
  * no-unused-styles rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin, runOxlintWithPluginFix } from "../run-oxlint";
 
 const RULE = "react-native/no-unused-styles";
 const rules = { [RULE]: "error" };
@@ -78,6 +78,26 @@ describe("no-unused-styles", () => {
       expect(out).toContain(
         "react-native(no-unused-styles): Unused style detected: styles.unused",
       );
+    });
+  });
+
+  describe("fix", () => {
+    it("removes unused style from StyleSheet.create", () => {
+      const code = `
+      const styles = StyleSheet.create({
+        used: { flex: 1 },
+        unused: { color: 'red' },
+      });
+      export default function My() {
+        return <View style={styles.used} />;
+      }
+    `;
+      const fixed = runOxlintWithPluginFix(code, rules);
+      console.log(fixed);
+      expect(fixed).not.toContain("unused:");
+      expect(fixed).toContain("used: { flex: 1 }");
+      expect(fixed).toContain("StyleSheet.create({");
+      expect(fixed).toContain("});");
     });
   });
 });

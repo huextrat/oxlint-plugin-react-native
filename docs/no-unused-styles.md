@@ -5,7 +5,7 @@ Report style definitions in `StyleSheet.create()` that are never referenced. Unu
 ## Rule details
 
 - **Rule ID:** `react-native/no-unused-styles`
-- **Fixable:** No
+- **Fixable:** Yes (removes the unused style property from `StyleSheet.create`)
 
 The rule tracks:
 
