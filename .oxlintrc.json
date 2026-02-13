@@ -8,5 +8,5 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": ["CHANGELOG.md"]
 }
