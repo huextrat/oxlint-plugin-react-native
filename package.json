@@ -1,6 +1,6 @@
 {
   "name": "oxlint-plugin-react-native",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "React Native specific linting rules for Oxlint",
   "keywords": [
     "oxlint",
