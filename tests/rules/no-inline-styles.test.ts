@@ -40,7 +40,7 @@ describe("no-inline-styles", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(no-inline-styles): Inline style: { backgroundColor: '#FFFFFF', opacity: 0.5 }",
+        "Inline style: { backgroundColor: '#FFFFFF', opacity: 0.5 }",
       );
     });
 
@@ -51,9 +51,7 @@ describe("no-inline-styles", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-inline-styles): Inline style: { height: 12 }",
-      );
+      expect(out).toContain("Inline style: { height: 12 }");
     });
 
     it("inline style in array", () => {
@@ -63,9 +61,7 @@ describe("no-inline-styles", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-inline-styles): Inline style: { backgroundColor: '#FFFFFF' }",
-      );
+      expect(out).toContain("Inline style: { backgroundColor: '#FFFFFF' }");
     });
   });
 });

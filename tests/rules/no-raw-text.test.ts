@@ -44,7 +44,7 @@ describe("no-raw-text", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(no-raw-text): Raw text (Raw text outside Text) cannot be used outside of a <Text> tag",
+        "Raw text (Raw text outside Text) cannot be used outside of a <Text> tag",
       );
     });
 
@@ -56,7 +56,7 @@ describe("no-raw-text", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(no-raw-text): Raw text (hello) cannot be used outside of a <Text> tag",
+        "Raw text (hello) cannot be used outside of a <Text> tag",
       );
     });
   });

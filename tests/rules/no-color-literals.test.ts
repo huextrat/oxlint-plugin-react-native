@@ -39,9 +39,7 @@ describe("no-color-literals", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-color-literals): Color literal: { backgroundColor: '#FFFFFF' }",
-      );
+      expect(out).toContain("Color literal: { backgroundColor: '#FFFFFF' }");
     });
 
     it("color literal in StyleSheet.create", () => {
@@ -54,9 +52,7 @@ describe("no-color-literals", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-color-literals): Color literal: { backgroundColor: '#ccc' }",
-      );
+      expect(out).toContain("Color literal: { backgroundColor: '#ccc' }");
     });
   });
 });

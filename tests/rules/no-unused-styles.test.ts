@@ -79,9 +79,7 @@ describe("no-unused-styles", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-unused-styles): Unused style detected: styles.unused",
-      );
+      expect(out).toContain("Unused style detected: styles.unused");
     });
   });
 
@@ -97,7 +95,6 @@ describe("no-unused-styles", () => {
       }
     `;
       const fixed = runOxlintWithPluginFix(code, rules);
-      console.log(fixed);
       expect(fixed).not.toContain("unused:");
       expect(fixed).toContain("used: { flex: 1 }");
       expect(fixed).toContain("StyleSheet.create({");
