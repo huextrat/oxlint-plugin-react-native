@@ -25,6 +25,10 @@
   ],
   "type": "module",
   "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsc",
     "lint": "oxlint --type-aware --type-check --report-unused-disable-directives",
