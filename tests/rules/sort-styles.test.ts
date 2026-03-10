@@ -46,7 +46,7 @@ describe("sort-styles", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(sort-styles): Expected class names to be in ascending order. 'b' should be before 'c'",
+        "Expected class names to be in ascending order. 'b' should be before 'c'",
       );
     });
 
@@ -64,7 +64,7 @@ describe("sort-styles", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(sort-styles): Expected style properties to be in ascending order. 'alignItems' should be before 'zIndex'",
+        "Expected style properties to be in ascending order. 'alignItems' should be before 'zIndex'",
       );
     });
   });

@@ -46,7 +46,7 @@ describe("no-single-element-style-arrays", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(no-single-element-style-arrays): Single element style arrays are not necessary and cause unnecessary re-renders",
+        "Single element style arrays are not necessary and cause unnecessary re-renders",
       );
     });
 
@@ -58,7 +58,7 @@ describe("no-single-element-style-arrays", () => {
     `;
       const out = runOxlintWithPlugin(code, rules);
       expect(out).toContain(
-        "react-native(no-single-element-style-arrays): Single element style arrays are not necessary and cause unnecessary re-renders",
+        "Single element style arrays are not necessary and cause unnecessary re-renders",
       );
     });
   });

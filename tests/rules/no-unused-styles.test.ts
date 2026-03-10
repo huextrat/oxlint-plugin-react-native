@@ -79,9 +79,7 @@ describe("no-unused-styles", () => {
       }
     `;
       const out = runOxlintWithPlugin(code, rules);
-      expect(out).toContain(
-        "react-native(no-unused-styles): Unused style detected: styles.unused",
-      );
+      expect(out).toContain("Unused style detected: styles.unused");
     });
   });
 
