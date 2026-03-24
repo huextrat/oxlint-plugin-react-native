@@ -10,7 +10,7 @@ import { pathToFileURL } from "url";
 
 const ROOT = path.resolve(__dirname, "..");
 const TMP_DIR = path.join(__dirname, "tmp");
-const PLUGIN_SPEC = path.join(ROOT, "dist", "index.js");
+const PLUGIN_SPEC = path.join(ROOT, "dist/src", "index.js");
 const OXLINT_BIN = path.join(
   ROOT,
   "node_modules",
