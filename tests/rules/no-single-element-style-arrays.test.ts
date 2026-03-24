@@ -2,7 +2,7 @@
  * no-single-element-style-arrays rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint.js";
 
 const RULE = "react-native/no-single-element-style-arrays";
 const rules = { [RULE]: "error" };

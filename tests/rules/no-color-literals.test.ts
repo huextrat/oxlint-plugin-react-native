@@ -2,7 +2,7 @@
  * no-color-literals rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint.js";
 
 const RULE = "react-native/no-color-literals";
 const rules = { [RULE]: "error" };

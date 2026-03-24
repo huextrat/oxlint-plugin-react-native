@@ -2,7 +2,7 @@
  * no-raw-text rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint.js";
 
 const RULE = "react-native/no-raw-text";
 const rules = { [RULE]: "error" };
