@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.9...v0.2.10) (2026-03-24)
+
+
+### Bug Fixes
+
+* **deps:** update oxlint monorepo ([#46](https://github.com/huextrat/oxlint-plugin-react-native/issues/46)) ([408915c](https://github.com/huextrat/oxlint-plugin-react-native/commit/408915ccf7094db990fd70c80e005fc35252180e))
+
 ## [0.2.9](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.8...v0.2.9) (2026-03-16)
 
 
