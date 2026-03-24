@@ -24,7 +24,7 @@
     "dist"
   ],
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -58,7 +58,7 @@
     "oxlint": "1.56.0",
     "oxlint-tsgolint": "^0.16.0",
     "semantic-release": "^25.0.3",
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   },
   "peerDependencies": {
     "oxlint": ">=1.0.0"

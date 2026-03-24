@@ -1,6 +1,6 @@
 import { detect } from "../util/Components.js";
 import { StyleSheets, astHelpers } from "../util/stylesheet.js";
-import * as util from "util";
+import * as util from "node:util";
 
 const rule = detect((context: any) => {
   // Setup state per-file (createOnce)
