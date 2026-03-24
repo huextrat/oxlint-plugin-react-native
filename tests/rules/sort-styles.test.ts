@@ -2,7 +2,7 @@
  * sort-styles rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint.js";
 
 const RULE = "react-native/sort-styles";
 const rules = { [RULE]: "error" };

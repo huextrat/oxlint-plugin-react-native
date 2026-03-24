@@ -6,7 +6,7 @@ import {
   hasDist,
   runOxlintWithPlugin,
   runOxlintWithPluginFix,
-} from "../run-oxlint";
+} from "../run-oxlint.js";
 
 const RULE = "react-native/no-unused-styles";
 const rules = { [RULE]: "error" };

@@ -2,7 +2,7 @@
  * no-inline-styles rule: run against oxlint.
  */
 
-import { hasDist, runOxlintWithPlugin } from "../run-oxlint";
+import { hasDist, runOxlintWithPlugin } from "../run-oxlint.js";
 
 const RULE = "react-native/no-inline-styles";
 const rules = { [RULE]: "error" };
