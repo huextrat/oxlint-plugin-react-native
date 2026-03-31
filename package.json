@@ -40,7 +40,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "@oxlint/plugins": "1.57.0"
+    "@oxlint/plugins": "1.58.0"
   },
   "devDependencies": {
     "@babel/core": "7.29.0",
@@ -54,8 +54,8 @@
     "@types/node": "25.5.0",
     "commitlint": "^20.4.1",
     "jest": "30.3.0",
-    "oxfmt": "^0.42.0",
-    "oxlint": "1.57.0",
+    "oxfmt": "^0.43.0",
+    "oxlint": "1.58.0",
     "oxlint-tsgolint": "^0.18.0",
     "semantic-release": "^25.0.3",
     "typescript": "6.0.2"
