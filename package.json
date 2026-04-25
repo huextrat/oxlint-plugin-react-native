@@ -56,7 +56,7 @@
     "jest": "30.3.0",
     "oxfmt": "^0.46.0",
     "oxlint": "1.61.0",
-    "oxlint-tsgolint": "^0.21.0",
+    "oxlint-tsgolint": "^0.22.0",
     "semantic-release": "^25.0.3",
     "typescript": "6.0.3"
   },
