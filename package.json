@@ -40,7 +40,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
-    "@oxlint/plugins": "1.68.0"
+    "@oxlint/plugins": "1.69.0"
   },
   "devDependencies": {
     "@babel/core": "7.29.7",
