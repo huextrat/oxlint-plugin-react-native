@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.27](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.26...v0.2.27) (2026-07-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @oxlint/plugins to v1.74.0 ([#132](https://github.com/huextrat/oxlint-plugin-react-native/issues/132)) ([8cdc096](https://github.com/huextrat/oxlint-plugin-react-native/commit/8cdc0968fbd5fad32e86304353d992f5ba8a9633))
+
 ## [0.2.26](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.25...v0.2.26) (2026-07-07)
 
 
