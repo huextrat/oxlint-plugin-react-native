@@ -4,10 +4,11 @@
   "enabledManagers": ["npm", "github-actions", "nvm"],
   "packageRules": [
     {
-      "description": "Keep the Oxlint toolchain compatible",
+      "description": "Keep the Oxlint toolchain compatible and automerge after CI",
       "matchManagers": ["npm"],
       "matchPackageNames": ["@oxlint/plugins", "oxlint", "oxlint-tsgolint"],
-      "groupName": "Oxlint toolchain"
+      "groupName": "Oxlint toolchain",
+      "automerge": true
     },
     {
       "description": "Automerge stable npm updates that preserve SemVer compatibility",
