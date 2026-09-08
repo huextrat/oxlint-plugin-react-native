@@ -1,11 +1,35 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "enabledManagers": ["npm", "github-actions"],
+  "extends": ["config:best-practices"],
+  "enabledManagers": ["npm", "github-actions", "nvm"],
   "packageRules": [
     {
+      "description": "Keep the Oxlint toolchain compatible",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@oxlint/plugins", "oxlint", "oxlint-tsgolint"],
+      "groupName": "Oxlint toolchain"
+    },
+    {
+      "description": "Automerge stable npm updates that preserve SemVer compatibility",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    },
+    {
+      "description": "Automerge pinned GitHub Action digest updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge Node.js updates within the current LTS line",
+      "matchManagers": ["nvm"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
-  ]
+  ],
+  "lockFileMaintenance": {
+    "automerge": true
+  }
 }
