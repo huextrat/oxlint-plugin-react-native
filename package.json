@@ -51,7 +51,7 @@
     "@semantic-release/changelog": "7.0.0",
     "@semantic-release/git": "11.0.1",
     "@types/jest": "30.0.0",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.4",
     "commitlint": "21.2.2",
     "conventional-commits-filter": "6.0.1",
     "conventional-commits-parser": "7.1.2",
