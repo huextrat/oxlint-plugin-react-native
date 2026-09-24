@@ -56,7 +56,7 @@
     "conventional-commits-filter": "6.0.1",
     "conventional-commits-parser": "7.1.2",
     "jest": "30.5.2",
-    "oxfmt": "0.67.0",
+    "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
     "oxlint-tsgolint": "7.0.2002",
     "semantic-release": "25.0.9",
