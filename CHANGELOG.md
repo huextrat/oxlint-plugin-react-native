@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.38](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.37...v0.2.38) (2026-10-08)
+
+
+### Bug Fixes
+
+* **deps:** update oxlint toolchain to v1.87.0 ([#173](https://github.com/huextrat/oxlint-plugin-react-native/issues/173)) ([be2d502](https://github.com/huextrat/oxlint-plugin-react-native/commit/be2d5020b97f4f7773c7efe157ea7e92f1c13ae6))
+
 ## [0.2.37](https://github.com/huextrat/oxlint-plugin-react-native/compare/v0.2.36...v0.2.37) (2026-10-01)
 
 
