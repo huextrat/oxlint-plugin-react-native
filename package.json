@@ -58,7 +58,7 @@
     "jest": "30.5.2",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
-    "oxlint-tsgolint": "7.0.2003",
+    "oxlint-tsgolint": "7.0.2004",
     "semantic-release": "25.0.9",
     "typescript": "7.0.2"
   },
